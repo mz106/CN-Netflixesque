@@ -41,8 +41,9 @@ const main = () => {
         movieListArr = [];
     }
 
-    if (argv.add) {                                                                                                                             
-        add(movieListArr, argv.add);
+    if (argv.add) {              
+        // takes an integer as id and a string as a movie name                                                                                                               
+        add(movieListArr, argv.id, argv.add);
     } else if (argv.delete) {                                                                                                                  
         deleteMovie(movieListArr, argv.delete);
     } else if (argv.update) {                                                                                                                    

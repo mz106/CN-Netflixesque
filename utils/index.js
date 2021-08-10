@@ -5,38 +5,34 @@ const save = (updatedArr) => {
   fs.writeFileSync("./netflix.json", stringyObj);
 };
 
-exports.add = (movieListArr, input) => {
-  let movieObj = { movie: input };
+exports.add = (movieListArr, movieId, input) => {
+  let movieObj = { 
+    id: movieId,  
+    movie: input 
+    };
   movieListArr.push(movieObj);
   save(movieListArr);
 };
 
-exports.deleteMovie = (movieListArr, input) => {
-  let spliceIndex;
-  movieListArr.map((movie, index) => {
-    if (movie.movie === input) {
-      spliceIndex = index;
-    }
-  });
-  if (spliceIndex >= 0) {
-    movieListArr.splice(spliceIndex, 1);
-    save(movieListArr);
-  } else {
-    console.log("Movie doesn't exist");
-  }
+exports.deleteMovie = (movieListArr, movieId) => {
+    let newArr = movieListArr.filter(item => (item.id) !== movieId)
+    save(newArr)
 };
 
-exports.updateMovie = (movieListArr, input, updateInput) => {
-  let spliceIndex;
-  movieListArr.map((movie, index) => {
-    if (movie.movie === input) {
-      spliceIndex = index;
+exports.updateMovie = (movieListArr, movieId, updateInput) => {
+  let newArr = movieListArr;
+
+  for(let movie of newArr) {
+    if (movie.id === movieId) {
+        movie.movie = updateInput
     }
-  });
-  try {
-    movieListArr[spliceIndex].movie = updateInput;
-    save(movieListArr);
-  } catch (error) {
-    console.log("Movie doesn't exist");
   }
+//   newArr.map(item => {
+//       if (newArr[movieId - 1].id === movieId) {
+//           newArr[movieId - 1].movie = updateInput
+//       }
+//   })
+
+    
+    save(newArr)
 };
